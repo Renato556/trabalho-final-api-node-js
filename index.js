@@ -4,10 +4,10 @@ const routes = require("./src/routes");
 
 dotenv.config();
 
-const app = express();
-app.use(express.json());
-app.use('/movies', routes);
+const index = express();
+index.use(express.json());
+index.use('/movies', routes);
 
 const port = process.env.PORT;
-app.listen(port);
+index.listen(port);
 console.log(`App listening on port ${port}`);

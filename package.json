@@ -2,10 +2,10 @@
   "name": "trabalho-final-api-node",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "build": "node app.js",
+    "dev": "nodemon index.js",
+    "build": "node index.js",
     "test": "jest"
   },
   "author": "",
