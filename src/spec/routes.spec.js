@@ -5,6 +5,10 @@ const moviesService = require('../main/services/moviesService');
 
 jest.mock('../main/services/moviesService', () => ({
   findAll: jest.fn(),
+  findById: jest.fn(),
+  create: jest.fn(),
+  update: jest.fn(),
+  delete: jest.fn(),
 }));
 
 const app = express();
