@@ -32,6 +32,7 @@ const moviesService = {
   async create(req, res) {
     try {
       console.info('[INFO] Creating a new movie');
+      // validar se já existe um filme de IMDBId para impedir cadastro duplicado
       const movie = await moviesRepository.create(req.body);
       console.info('[INFO] Success creating movie');
       res.status(201).send(movie);
@@ -44,7 +45,11 @@ const moviesService = {
   async update(req, res) {
     try {
       console.info(`[INFO] Updating movie with id: ${req.params.id}`);
-      const updatedMovie = await moviesRepository.update(req.params.id, req.body);
+      // acredito que precisamos verificar se existe um filme com o ID antes de tentar atualizar, não consegui fazer cair no cenário de 404
+      const updatedMovie = await moviesRepository.update(
+        req.params.id,
+        req.body
+      );
       if (!updatedMovie) {
         console.warn('[WARN] Movie not found for update');
         return res.status(404).send({ message: 'Movie not found' });
@@ -72,7 +77,6 @@ const moviesService = {
       res.sendStatus(500);
     }
   },
-  
 };
 
 module.exports = moviesService;

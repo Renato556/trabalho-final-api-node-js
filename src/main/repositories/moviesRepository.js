@@ -18,15 +18,14 @@ const moviesRepository = {
 
   async create(movieData) {
     const result = await mongoCollection.insertOne(movieData);
-    const movie = await mongoCollection.findOne({ _id: result.insertedId });
-    return movie;
-  },  
+    return await mongoCollection.findOne({ _id: result.insertedId });
+  },
 
   async update(id, movieData) {
     const result = await mongoCollection.findOneAndUpdate(
       { _id: new ObjectId(id) },
       { $set: movieData },
-      { returnOriginal: false } 
+      { returnOriginal: false }
     );
     return result.value;
   },
@@ -35,7 +34,6 @@ const moviesRepository = {
     const result = await mongoCollection.deleteOne({ _id: new ObjectId(id) });
     return result.deletedCount > 0;
   },
-
 };
 
 module.exports = moviesRepository;
