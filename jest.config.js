@@ -5,4 +5,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'json'],
   collectCoverage: true,
   coverageReporters: ['lcov', 'text', 'html'],
+  collectCoverageFrom: [
+    'src/**/*.js',
+  ],
 };
