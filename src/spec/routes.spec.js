@@ -2,6 +2,7 @@ const request = require('supertest');
 const express = require('express');
 const routes = require('../main/routes');
 const moviesService = require('../main/services/moviesService');
+const validateRequest = require('../main/middlewares/validateRequest');
 
 jest.mock('../main/services/moviesService', () => ({
   findAll: jest.fn(),
@@ -10,6 +11,11 @@ jest.mock('../main/services/moviesService', () => ({
   update: jest.fn(),
   delete: jest.fn(),
 }));
+jest.mock('../main/middlewares/validateRequest', () =>
+  jest.fn().mockImplementation((req, res, next) => {
+    next();
+  })
+);
 
 const app = express();
 app.use('/', routes);
@@ -39,7 +45,11 @@ describe('Given movies routes', () => {
       moviesService.findById.mockImplementation((req, res) => {
         res.sendStatus(200);
       });
-      response = await request(app).get('/id');
+      response = await request(app).get('/673cfac8eb496d1facf32077');
+    });
+
+    it('ThenvalidateRequest middleware is called', () => {
+      expect(validateRequest).toHaveBeenCalled();
     });
 
     it('Then moviesService.findAll is called', () => {
@@ -59,6 +69,10 @@ describe('Given movies routes', () => {
       response = await request(app).post('/');
     });
 
+    it('ThenvalidateRequest middleware is called', () => {
+      expect(validateRequest).toHaveBeenCalled();
+    });
+
     it('Then moviesService.create is called', () => {
       expect(moviesService.create).toHaveBeenCalled();
     });
@@ -73,7 +87,11 @@ describe('Given movies routes', () => {
       moviesService.update.mockImplementation((req, res) => {
         res.sendStatus(200);
       });
-      response = await request(app).put('/id');
+      response = await request(app).put('/673cfac8eb496d1facf32077');
+    });
+
+    it('ThenvalidateRequest middleware is called', () => {
+      expect(validateRequest).toHaveBeenCalled();
     });
 
     it('Then moviesService.update is called', () => {
@@ -90,7 +108,11 @@ describe('Given movies routes', () => {
       moviesService.delete.mockImplementation((req, res) => {
         res.sendStatus(204);
       });
-      response = await request(app).delete('/id');
+      response = await request(app).delete('/673cfac8eb496d1facf32077');
+    });
+
+    it('ThenvalidateRequest middleware is called', () => {
+      expect(validateRequest).toHaveBeenCalled();
     });
 
     it('Then moviesService.delete is called', () => {

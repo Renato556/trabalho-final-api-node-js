@@ -10,12 +10,34 @@ global.console = {
 };
 
 describe('Given moviesService', () => {
-  const req = {};
+  const req = {
+    params: {
+      id: '673cfac8eb496d1facf3207',
+    },
+  };
   const res = {
     status: jest.fn().mockReturnThis(),
     send: jest.fn(),
     sendStatus: jest.fn(),
   };
+
+  const mockDB = [
+    {
+      _id: '673cfac8eb496d1facf3207',
+      name: 'Interestelar',
+      director: "Christopher Nolan",
+      releaseYear: 2014,
+      synopsis: "Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.",
+      rating: 8.7,
+      actors: [
+        'Matthew McConaughey',
+        'Jessica Chastain',
+        'Anne Hathaway',
+        'Timothée Chalamet',
+      ],
+      genres: ['Ficção científica', 'Aventura'],
+    },
+  ];
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -23,23 +45,6 @@ describe('Given moviesService', () => {
 
   describe('When findAll is called', () => {
     describe('And is successful', () => {
-      const mockDB = [
-        {
-          id: '1',
-          nome: 'Interestelar',
-          atores: [
-            'Matthew McConaughey',
-            'Jessica Chastain',
-            'Anne Hathaway',
-            'Timothée Chalamet',
-          ],
-          descricao:
-            'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
-          anoLancamento: 2014,
-          genero: ['Ficção científica', 'Aventura'],
-        },
-      ];
-
       beforeEach(async () => {
         moviesRepository.findAll.mockResolvedValue(mockDB);
         await moviesService.findAll(req, res);
@@ -95,37 +100,19 @@ describe('Given moviesService', () => {
 
   describe('When findById is called', () => {
     describe('And is successful', () => {
-      const mockDB = {
-        id: '1',
-        nome: 'Interestelar',
-        atores: [
-          'Matthew McConaughey',
-          'Jessica Chastain',
-          'Anne Hathaway',
-          'Timothée Chalamet',
-        ],
-        descricao:
-          'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
-        anoLancamento: 2014,
-        genero: ['Ficção científica', 'Aventura'],
-      };
-
       beforeEach(async () => {
-        req.params = {
-          id: '1',
-        };
         moviesRepository.findById.mockResolvedValue(mockDB);
         await moviesService.findById(req, res);
       });
 
       it('Then logs first info', () => {
         expect(console.info).toHaveBeenCalledWith(
-          '[INFO] Getting movie with id: 1'
+          '[INFO] Getting movie with id: 673cfac8eb496d1facf3207'
         );
       });
 
       it('Then moviesRepository.findById is called', () => {
-        expect(moviesRepository.findById).toHaveBeenCalledWith('1');
+        expect(moviesRepository.findById).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
       });
 
       it('Then logs second info', () => {
@@ -141,21 +128,18 @@ describe('Given moviesService', () => {
 
     describe('And no movie is found with given ID', () => {
       beforeEach(async () => {
-        req.params = {
-          id: '1',
-        };
         moviesRepository.findById.mockResolvedValue(null);
         await moviesService.findById(req, res);
       });
 
       it('Then logs first info', () => {
         expect(console.info).toHaveBeenCalledWith(
-          '[INFO] Getting movie with id: 1'
+          '[INFO] Getting movie with id: 673cfac8eb496d1facf3207'
         );
       });
 
       it('Then moviesRepository.findById is called', () => {
-        expect(moviesRepository.findById).toHaveBeenCalledWith('1');
+        expect(moviesRepository.findById).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
       });
 
       it('Then logs warn', () => {
@@ -181,12 +165,12 @@ describe('Given moviesService', () => {
 
       it('Then logs first info', () => {
         expect(console.info).toHaveBeenCalledWith(
-          '[INFO] Getting movie with id: 1'
+          '[INFO] Getting movie with id: 673cfac8eb496d1facf3207'
         );
       });
 
       it('Then moviesRepository.findById is called', () => {
-        expect(moviesRepository.findById).toHaveBeenCalledWith('1');
+        expect(moviesRepository.findById).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
       });
 
       it('Then logs error', () => {
@@ -205,21 +189,18 @@ describe('Given moviesService', () => {
   describe('When delete is called', () => {
     describe('And is successful', () => {
       beforeEach(async () => {
-        req.params = {
-          id: '1',
-        };
         moviesRepository.delete.mockResolvedValue(true);
         await moviesService.delete(req, res);
       });
 
       it('Then logs first info', () => {
         expect(console.info).toHaveBeenCalledWith(
-          '[INFO] Deleting movie with id: 1'
+          '[INFO] Deleting movie with id: 673cfac8eb496d1facf3207'
         );
       });
 
       it('Then moviesRepository.delete is called', () => {
-        expect(moviesRepository.delete).toHaveBeenCalledWith('1');
+        expect(moviesRepository.delete).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
       });
 
       it('Then logs second info', () => {
@@ -235,21 +216,18 @@ describe('Given moviesService', () => {
 
     describe('And no movie is found with given ID', () => {
       beforeEach(async () => {
-        req.params = {
-          id: '1',
-        };
         moviesRepository.delete.mockResolvedValue(false);
         await moviesService.delete(req, res);
       });
 
       it('Then logs first info', () => {
         expect(console.info).toHaveBeenCalledWith(
-          '[INFO] Deleting movie with id: 1'
+          '[INFO] Deleting movie with id: 673cfac8eb496d1facf3207'
         );
       });
 
       it('Then moviesRepository.delete is called', () => {
-        expect(moviesRepository.delete).toHaveBeenCalledWith('1');
+        expect(moviesRepository.delete).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
       });
 
       it('Then logs warn', () => {
@@ -277,12 +255,12 @@ describe('Given moviesService', () => {
 
       it('Then logs first info', () => {
         expect(console.info).toHaveBeenCalledWith(
-          '[INFO] Deleting movie with id: 1'
+          '[INFO] Deleting movie with id: 673cfac8eb496d1facf3207'
         );
       });
 
       it('Then moviesRepository.delete is called', () => {
-        expect(moviesRepository.delete).toHaveBeenCalledWith('1');
+        expect(moviesRepository.delete).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
       });
 
       it('Then logs error', () => {

@@ -1,12 +1,16 @@
 const express = require('express');
 const routes = express.Router();
 
+const movieValidator = require('./validators/movieValidator');
+const idValidator = require('./validators/idValidator');
+const validateRequest = require('./middlewares/validateRequest');
+
 const moviesService = require('./services/moviesService');
 
 routes.get('/', moviesService.findAll);
-routes.get('/:id', moviesService.findById);
-routes.post('/', moviesService.create);
-routes.put('/:id', moviesService.update);
-routes.delete('/:id', moviesService.delete);
+routes.get('/:id', idValidator, validateRequest, moviesService.findById);
+routes.post('/', movieValidator, validateRequest, moviesService.create);
+routes.put('/:id', idValidator, validateRequest, moviesService.update);
+routes.delete('/:id', idValidator, validateRequest, moviesService.delete);
 
 module.exports = routes;

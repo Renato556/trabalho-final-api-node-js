@@ -1,4 +1,5 @@
 const moviesRepository = require('../repositories/moviesRepository');
+const MovieDTO = require('../dtos/movieDTO');
 
 const moviesService = {
   async findAll(req, res) {
@@ -32,8 +33,7 @@ const moviesService = {
   async create(req, res) {
     try {
       console.info('[INFO] Creating a new movie');
-      // validar se já existe um filme de IMDBId para impedir cadastro duplicado
-      const movie = await moviesRepository.create(req.body);
+      const movie = await moviesRepository.create(new MovieDTO(req.body));
       console.info('[INFO] Success creating movie');
       res.status(201).send(movie);
     } catch (e) {

@@ -41,10 +41,22 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "nome": {
+                  "name": {
                     "example": "Interestelar"
                   },
-                  "atores": {
+                  "director": {
+                    "example": "Christopher Nolan"
+                  },
+                  "releaseYear": {
+                    "example": 2014
+                  },
+                  "synopsis": {
+                    "example": "Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade."
+                  },
+                  "rating": {
+                    "example": 2014
+                  },
+                  "actors": {
                     "example": [
                       "Matthew McConaughey",
                       "Jessica Chastain",
@@ -52,13 +64,7 @@
                       "Timothée Chalamet"
                     ]
                   },
-                  "descricao": {
-                    "example": "Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade."
-                  },
-                  "anoLancamento": {
-                    "example": 2014
-                  },
-                  "genero": {
+                  "genres": {
                     "example": ["Ficção científica", "Aventura"]
                   }
                 }
@@ -124,7 +130,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "atores": {
+                  "actors": {
                     "example": ["Anne Hathaway", "Timothée Chalamet"]
                   }
                 }
@@ -169,12 +175,22 @@
             "type": "string",
             "example": "673c847c6156c4908a2aa5fb"
           },
-          "nome": {
-            "type": "string",
+          "name": {
             "example": "Interestelar"
           },
-          "atores": {
-            "type": "array",
+          "director": {
+            "example": "Christopher Nolan"
+          },
+          "releaseYear": {
+            "example": 2014
+          },
+          "synopsis": {
+            "example": "Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade."
+          },
+          "rating": {
+            "example": 2014
+          },
+          "actors": {
             "example": [
               "Matthew McConaughey",
               "Jessica Chastain",
@@ -182,16 +198,7 @@
               "Timothée Chalamet"
             ]
           },
-          "descricao": {
-            "type": "string",
-            "example": "Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade."
-          },
-          "anoLancamento": {
-            "type": "integer",
-            "example": 2014
-          },
-          "genero": {
-            "type": "array",
+          "genres": {
             "example": ["Ficção científica", "Aventura"]
           }
         }
