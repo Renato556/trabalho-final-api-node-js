@@ -50,4 +50,55 @@ describe('Given movies routes', () => {
       expect(response.status).toBe(200);
     });
   });
+
+  describe('When POST /', () => {
+    beforeEach(async () => {
+      moviesService.create.mockImplementation((req, res) => {
+        res.sendStatus(201);
+      });
+      response = await request(app).post('/');
+    });
+
+    it('Then moviesService.create is called', () => {
+      expect(moviesService.create).toHaveBeenCalled();
+    });
+
+    it('Then status is 201', () => {
+      expect(response.status).toBe(201);
+    });
+  });
+
+  describe('When PUT /id', () => {
+    beforeEach(async () => {
+      moviesService.update.mockImplementation((req, res) => {
+        res.sendStatus(200);
+      });
+      response = await request(app).put('/id');
+    });
+
+    it('Then moviesService.update is called', () => {
+      expect(moviesService.update).toHaveBeenCalled();
+    });
+
+    it('Then status is 200', () => {
+      expect(response.status).toBe(200);
+    });
+  });
+
+  describe('When DELETE /id', () => {
+    beforeEach(async () => {
+      moviesService.delete.mockImplementation((req, res) => {
+        res.sendStatus(204);
+      });
+      response = await request(app).delete('/id');
+    });
+
+    it('Then moviesService.delete is called', () => {
+      expect(moviesService.delete).toHaveBeenCalled();
+    });
+
+    it('Then status is 204', () => {
+      expect(response.status).toBe(204);
+    });
+  });
 });
