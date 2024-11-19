@@ -6,7 +6,7 @@ jest.mock('../../../db', () => ({
   find: jest.fn().mockReturnValue({
     toArray: jest.fn().mockResolvedValue([
       {
-        id: 1,
+        _id: '673c847c6156c4908a2aa5fc',
         nome: 'Interestelar',
         atores: [
           'Matthew McConaughey',
@@ -21,6 +21,20 @@ jest.mock('../../../db', () => ({
       },
     ]),
   }),
+  findOne: jest.fn().mockReturnValue({
+    _id: '673c847c6156c4908a2aa5fc',
+    nome: 'Interestelar',
+    atores: [
+      'Matthew McConaughey',
+      'Jessica Chastain',
+      'Anne Hathaway',
+      'Timothée Chalamet',
+    ],
+    descricao:
+      'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
+    anoLancamento: 2014,
+    genero: ['Ficção científica', 'Aventura'],
+  }),
 }));
 
 describe('Given moviesRepository', () => {
@@ -33,7 +47,7 @@ describe('Given moviesRepository', () => {
     it('Then returns all movies in DB', () => {
       expect(result).toEqual([
         {
-          id: 1,
+          _id: '673c847c6156c4908a2aa5fc',
           nome: 'Interestelar',
           atores: [
             'Matthew McConaughey',
@@ -47,6 +61,30 @@ describe('Given moviesRepository', () => {
           genero: ['Ficção científica', 'Aventura'],
         },
       ]);
+    });
+  });
+
+  describe('When findById is called', () => {
+    let result;
+    beforeEach(async () => {
+      result = await moviesRepository.findById('673c847c6156c4908a2aa5fc');
+    });
+
+    it('Then returns the movie with the given ID', () => {
+      expect(result).toEqual({
+        _id: '673c847c6156c4908a2aa5fc',
+        nome: 'Interestelar',
+        atores: [
+          'Matthew McConaughey',
+          'Jessica Chastain',
+          'Anne Hathaway',
+          'Timothée Chalamet',
+        ],
+        descricao:
+          'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
+        anoLancamento: 2014,
+        genero: ['Ficção científica', 'Aventura'],
+      });
     });
   });
 });

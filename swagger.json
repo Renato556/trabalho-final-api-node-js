@@ -59,10 +59,7 @@
                     "example": 2014
                   },
                   "genero": {
-                    "example": [
-                      "Ficção científica",
-                      "Aventura"
-                    ]
+                    "example": ["Ficção científica", "Aventura"]
                   }
                 }
               }
@@ -128,10 +125,7 @@
                 "type": "object",
                 "properties": {
                   "atores": {
-                    "example": [
-                      "Anne Hathaway",
-                      "Timothée Chalamet"
-                    ]
+                    "example": ["Anne Hathaway", "Timothée Chalamet"]
                   }
                 }
               }
@@ -198,10 +192,7 @@
           },
           "genero": {
             "type": "array",
-            "example": [
-              "Ficção científica",
-              "Aventura"
-            ]
+            "example": ["Ficção científica", "Aventura"]
           }
         }
       }

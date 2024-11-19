@@ -33,4 +33,21 @@ describe('Given movies routes', () => {
       expect(response.status).toBe(200);
     });
   });
+
+  describe('When GET /id', () => {
+    beforeEach(async () => {
+      moviesService.findById.mockImplementation((req, res) => {
+        res.sendStatus(200);
+      });
+      response = await request(app).get('/id');
+    });
+
+    it('Then moviesService.findAll is called', () => {
+      expect(moviesService.findById).toHaveBeenCalled();
+    });
+
+    it('Then status is 200', () => {
+      expect(response.status).toBe(200);
+    });
+  });
 });

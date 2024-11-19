@@ -1,8 +1,8 @@
 module.exports = {
-    verbose: true,
-    testEnvironment: 'node',
-    testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js'],
-    moduleFileExtensions: ['js', 'json'],
-    collectCoverage: true,
-    coverageReporters: ['lcov', 'text', 'html'],
+  verbose: true,
+  testEnvironment: 'node',
+  testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js'],
+  moduleFileExtensions: ['js', 'json'],
+  collectCoverage: true,
+  coverageReporters: ['lcov', 'text', 'html'],
 };
