@@ -25,9 +25,10 @@ describe('Given moviesService', () => {
     {
       _id: '673cfac8eb496d1facf3207',
       name: 'Interestelar',
-      director: "Christopher Nolan",
+      director: 'Christopher Nolan',
       releaseYear: 2014,
-      synopsis: "Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.",
+      synopsis:
+        'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
       rating: 8.7,
       actors: [
         'Matthew McConaughey',
@@ -112,7 +113,9 @@ describe('Given moviesService', () => {
       });
 
       it('Then moviesRepository.findById is called', () => {
-        expect(moviesRepository.findById).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
+        expect(moviesRepository.findById).toHaveBeenCalledWith(
+          '673cfac8eb496d1facf3207'
+        );
       });
 
       it('Then logs second info', () => {
@@ -139,7 +142,9 @@ describe('Given moviesService', () => {
       });
 
       it('Then moviesRepository.findById is called', () => {
-        expect(moviesRepository.findById).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
+        expect(moviesRepository.findById).toHaveBeenCalledWith(
+          '673cfac8eb496d1facf3207'
+        );
       });
 
       it('Then logs warn', () => {
@@ -170,7 +175,9 @@ describe('Given moviesService', () => {
       });
 
       it('Then moviesRepository.findById is called', () => {
-        expect(moviesRepository.findById).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
+        expect(moviesRepository.findById).toHaveBeenCalledWith(
+          '673cfac8eb496d1facf3207'
+        );
       });
 
       it('Then logs error', () => {
@@ -200,7 +207,9 @@ describe('Given moviesService', () => {
       });
 
       it('Then moviesRepository.delete is called', () => {
-        expect(moviesRepository.delete).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
+        expect(moviesRepository.delete).toHaveBeenCalledWith(
+          '673cfac8eb496d1facf3207'
+        );
       });
 
       it('Then logs second info', () => {
@@ -227,7 +236,9 @@ describe('Given moviesService', () => {
       });
 
       it('Then moviesRepository.delete is called', () => {
-        expect(moviesRepository.delete).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
+        expect(moviesRepository.delete).toHaveBeenCalledWith(
+          '673cfac8eb496d1facf3207'
+        );
       });
 
       it('Then logs warn', () => {
@@ -260,7 +271,9 @@ describe('Given moviesService', () => {
       });
 
       it('Then moviesRepository.delete is called', () => {
-        expect(moviesRepository.delete).toHaveBeenCalledWith('673cfac8eb496d1facf3207');
+        expect(moviesRepository.delete).toHaveBeenCalledWith(
+          '673cfac8eb496d1facf3207'
+        );
       });
 
       it('Then logs error', () => {
