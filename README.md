@@ -56,6 +56,16 @@ Instale as dependências
   npm i
 ```
 
+Crie um arquivo .env com as seguintes variáveis
+
+```text
+HOST=localhost
+PORT=3000
+MONGODB_URI=URI DE CONEXÃO DO SEU MONGO ATLAS
+DB_NAME=trabalho_final_api_node
+DB_COLLECTION=movies
+```
+
 Inicie a aplicação
 
 ```bash
