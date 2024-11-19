@@ -1,1 +1,72 @@
 # trabalho-final-api-node-js
+
+Trabalho final desenvolvido para a disciplina de Plataformas Back-End NodeJS da PUC Minas
+
+![Generic badge](https://img.shields.io/badge/Node-blue)
+![Generic badge](https://img.shields.io/badge/mongodb-green)
+
+## Documentação da API
+
+[Swagger](https://trabalho-final-api-node-js.onrender.com/api-docs)
+
+## URL de acesso à API em produção
+
+https://trabalho-final-api-node-js.onrender.com/movies
+
+## Requisitos
+
+- Git
+- Node 20+
+- NPM
+
+## Rodando a aplicação
+
+Clone o projeto
+
+HTTP:
+
+```bash
+  git clone https://github.com/Renato556/trabalho-final-api-node-js
+```
+
+ou SSH:
+
+```bash
+  git clone git@github.com:Renato556/trabalho-final-api-node-js
+```
+
+Entre no diretório do projeto
+
+```bash
+  cd trabalho-final-api-node-js
+```
+
+Instale as dependências
+
+```bash
+  npm i
+```
+
+Inicie a aplicação
+
+```bash
+  npm run build
+```
+
+ou em modo de desenvolvimento com o nodemon
+
+```bash
+  npm run dev
+```
+
+## Rodando testes unitários
+
+```bash
+    npm t
+```
+
+## Formatando com prettier
+
+```bash
+    npm run prettier
+```

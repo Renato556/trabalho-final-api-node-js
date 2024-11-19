@@ -1,0 +1,210 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Trabalho final API Node JS",
+    "description": "Trabalho final desenvolvido para a disciplina de Plataformas Back-End NodeJS da PUC Minas"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/movies": {
+      "get": {
+        "tags": ["Movies"],
+        "description": "Busca todos os filmes",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Movies"],
+        "description": "Adiciona um novo filme ao banco de dados",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "Interestelar"
+                  },
+                  "atores": {
+                    "example": [
+                      "Matthew McConaughey",
+                      "Jessica Chastain",
+                      "Anne Hathaway",
+                      "Timothée Chalamet"
+                    ]
+                  },
+                  "descricao": {
+                    "example": "Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade."
+                  },
+                  "anoLancamento": {
+                    "example": 2014
+                  },
+                  "genero": {
+                    "example": [
+                      "Ficção científica",
+                      "Aventura"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "get": {
+        "tags": ["Movies"],
+        "description": "Busca um único filme pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Movies"],
+        "description": "Edita uma ou mais informações de um filme usando seu ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "atores": {
+                    "example": [
+                      "Anne Hathaway",
+                      "Timothée Chalamet"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Movies"],
+        "description": "Apaga o registro de um filme usando seu ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "673c847c6156c4908a2aa5fb"
+          },
+          "nome": {
+            "type": "string",
+            "example": "Interestelar"
+          },
+          "atores": {
+            "type": "array",
+            "example": [
+              "Matthew McConaughey",
+              "Jessica Chastain",
+              "Anne Hathaway",
+              "Timothée Chalamet"
+            ]
+          },
+          "descricao": {
+            "type": "string",
+            "example": "Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade."
+          },
+          "anoLancamento": {
+            "type": "integer",
+            "example": 2014
+          },
+          "genero": {
+            "type": "array",
+            "example": [
+              "Ficção científica",
+              "Aventura"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
