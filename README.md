@@ -2,6 +2,15 @@
 
 Trabalho final desenvolvido para a disciplina de Plataformas Back-End NodeJS da PUC Minas
 
+O projeto se trata de uma API de Filmes para gerenciamento de informações sobre filmes. Ela permite realizar operações como:
+
+- Consultar os filmes ou buscar por um filme específico com base no ID.
+- Adicionar novos filmes com informações como título, diretor, ano e gênero.
+- Atualizar os dados de um filme.
+- Excluir um filme pelo ID.
+
+Todos os dados estão sendo salvos e gerenciados no MongoDB.
+
 ![Generic badge](https://img.shields.io/badge/Node-blue)
 ![Generic badge](https://img.shields.io/badge/mongodb-green)
 
