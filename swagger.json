@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "https://trabalho-final-api-node-js.onrender.com"
     }
   ],
   "paths": {
@@ -30,6 +30,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "422": {
+            "description": "Unprocessable entity. Request body violated one or more validations"
           },
           "500": {
             "description": "Internal Server Error"
@@ -95,6 +98,9 @@
           "404": {
             "description": "Not Found"
           },
+          "422": {
+            "description": "Unprocessable entity. Id violated one or more validations"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -119,6 +125,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable entity. Id violated one or more validations"
           },
           "500": {
             "description": "Internal Server Error"
@@ -158,6 +167,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable entity. Id violated one or more validations"
           },
           "500": {
             "description": "Internal Server Error"

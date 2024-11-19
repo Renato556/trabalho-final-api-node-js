@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
@@ -11,7 +12,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use('/movies', routes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', cors(), swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = process.env.PORT;
 
