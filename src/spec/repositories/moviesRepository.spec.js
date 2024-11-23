@@ -16,8 +16,7 @@ jest.mock('../../../db', () => ({
           'Anne Hathaway',
           'Timothée Chalamet',
         ],
-        descricao:
-          'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
+        descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
         anoLancamento: 2014,
         genero: ['Ficção científica', 'Aventura'],
       },
@@ -26,14 +25,8 @@ jest.mock('../../../db', () => ({
   findOne: jest.fn().mockReturnValue({
     _id: '673c847c6156c4908a2aa5fc',
     nome: 'Interestelar',
-    atores: [
-      'Matthew McConaughey',
-      'Jessica Chastain',
-      'Anne Hathaway',
-      'Timothée Chalamet',
-    ],
-    descricao:
-      'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
+    atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
+    descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
     anoLancamento: 2014,
     genero: ['Ficção científica', 'Aventura'],
   }),
@@ -45,7 +38,7 @@ jest.mock('../../main/repositories/moviesRepository', () => ({
       _id: '673c847c6156c4908a2aa5fc',
       nome: 'Interestelar',
       atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
-      descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
+      descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
       anoLancamento: 2014,
       genero: ['Ficção científica', 'Aventura'],
     },
@@ -54,7 +47,7 @@ jest.mock('../../main/repositories/moviesRepository', () => ({
     _id: '673c847c6156c4908a2aa5fc',
     nome: 'Interestelar',
     atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
-    descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
+    descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
     anoLancamento: 2014,
     genero: ['Ficção científica', 'Aventura'],
   }),
@@ -63,26 +56,17 @@ jest.mock('../../main/repositories/moviesRepository', () => ({
   delete: jest.fn(),
 }));
 
-describe('Given moviesRepository', () => {
-  describe('When findAll is called', () => {
-    let result;
-    beforeEach(async () => {
-      result = await moviesRepository.findAll();
-    });
-
-    it('Then returns all movies in DB', () => {
+describe('Movies Repository and Service', () => {
+  
+  describe('findAll', () => {
+    it('should return all movies in DB', async () => {
+      const result = await moviesRepository.findAll();
       expect(result).toEqual([
         {
           _id: '673c847c6156c4908a2aa5fc',
           nome: 'Interestelar',
-          atores: [
-            'Matthew McConaughey',
-            'Jessica Chastain',
-            'Anne Hathaway',
-            'Timothée Chalamet',
-          ],
-          descricao:
-            'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
+          atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
+          descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
           anoLancamento: 2014,
           genero: ['Ficção científica', 'Aventura'],
         },
@@ -90,31 +74,21 @@ describe('Given moviesRepository', () => {
     });
   });
 
-  describe('When findById is called', () => {
-    let result;
-    beforeEach(async () => {
-      result = await moviesRepository.findById('673c847c6156c4908a2aa5fc');
-    });
-
-    it('Then returns the movie with the given ID', () => {
+  describe('findById', () => {
+    it('should return the movie with the given ID', async () => {
+      const result = await moviesRepository.findById('673c847c6156c4908a2aa5fc');
       expect(result).toEqual({
         _id: '673c847c6156c4908a2aa5fc',
         nome: 'Interestelar',
-        atores: [
-          'Matthew McConaughey',
-          'Jessica Chastain',
-          'Anne Hathaway',
-          'Timothée Chalamet',
-        ],
-        descricao:
-          'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.',
+        atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
+        descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
         anoLancamento: 2014,
         genero: ['Ficção científica', 'Aventura'],
       });
     });
   });
 
-  describe('When create is called in moviesService', () => {
+  describe('create', () => {
     const req = {
       body: {
         name: 'Interestelar',
@@ -126,7 +100,6 @@ describe('Given moviesRepository', () => {
         genres: ['Ficção científica', 'Aventura'],
       },
     };
-
     const res = {
       status: jest.fn().mockReturnThis(),
       send: jest.fn(),
@@ -136,46 +109,31 @@ describe('Given moviesRepository', () => {
       jest.clearAllMocks();
     });
 
-    describe('When the movie already exists in the database', () => {
-      it('Then it returns a 409 error', async () => {
-    
-        moviesRepository.findByNameAndDirector.mockResolvedValue({
-          _id: '673c847c6156c4908a2aa5fc',
-          name: 'Interestelar',
-          director: 'Christopher Nolan',
-        });
-
-        await moviesService.create(req, res);
-
-        expect(res.status).toHaveBeenCalledWith(409);
-        expect(res.send).toHaveBeenCalledWith({ message: 'Movie already exists' });
+    it('should return a 409 error if the movie already exists', async () => {
+      moviesRepository.findByNameAndDirector.mockResolvedValue({
+        _id: '673c847c6156c4908a2aa5fc',
+        name: 'Interestelar',
+        director: 'Christopher Nolan',
       });
+      await moviesService.create(req, res);
+      expect(res.status).toHaveBeenCalledWith(409);
+      expect(res.send).toHaveBeenCalledWith({ message: 'Movie already exists' });
     });
 
-    describe('When the movie does not exist in the database', () => {
-      it('Then it creates the movie and returns the created movie', async () => {
-       
-        moviesRepository.findByNameAndDirector.mockResolvedValue(null);
-        moviesRepository.create.mockResolvedValue(new MovieDTO(req.body));
-
-        await moviesService.create(req, res);
-
-        expect(moviesRepository.findByNameAndDirector).toHaveBeenCalledWith(
-          req.body.name,
-          req.body.director
-        );
-        expect(moviesRepository.create).toHaveBeenCalledWith(expect.any(MovieDTO));
-        expect(res.status).toHaveBeenCalledWith(201);
-        expect(res.send).toHaveBeenCalledWith(expect.objectContaining(req.body));
-      });
+    it('should create the movie and return it', async () => {
+      moviesRepository.findByNameAndDirector.mockResolvedValue(null);
+      moviesRepository.create.mockResolvedValue(new MovieDTO(req.body));
+      await moviesService.create(req, res);
+      expect(moviesRepository.create).toHaveBeenCalledWith(expect.any(MovieDTO));
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.send).toHaveBeenCalledWith(expect.objectContaining(req.body));
     });
   });
 
-  describe('When delete is called in moviesService', () => {
+  describe('delete', () => {
     const req = {
       params: { id: '673c847c6156c4908a2aa5fc' },
     };
-
     const res = {
       status: jest.fn().mockReturnThis(),
       send: jest.fn(),
@@ -186,41 +144,24 @@ describe('Given moviesRepository', () => {
       jest.clearAllMocks();
     });
 
-    describe('When the movie exists and is deleted successfully', () => {
-      it('Then it deletes the movie and returns a 204 status', async () => {
-       
-        moviesRepository.delete.mockResolvedValue(true);
-
-        await moviesService.delete(req, res);
-
-        expect(moviesRepository.delete).toHaveBeenCalledWith(req.params.id);
-        expect(res.sendStatus).toHaveBeenCalledWith(204);
-      });
+    it('should delete the movie successfully', async () => {
+      moviesRepository.delete.mockResolvedValue(true);
+      await moviesService.delete(req, res);
+      expect(moviesRepository.delete).toHaveBeenCalledWith(req.params.id);
+      expect(res.sendStatus).toHaveBeenCalledWith(204);
     });
 
-    describe('When the movie does not exist for deletion', () => {
-      it('Then it returns a 404 error', async () => {
-       
-        moviesRepository.delete.mockResolvedValue(false);
-
-        await moviesService.delete(req, res);
-
-        expect(moviesRepository.delete).toHaveBeenCalledWith(req.params.id);
-        expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.send).toHaveBeenCalledWith({ message: 'Movie not found' });
-      });
+    it('should return 404 if the movie is not found', async () => {
+      moviesRepository.delete.mockResolvedValue(false);
+      await moviesService.delete(req, res);
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.send).toHaveBeenCalledWith({ message: 'Movie not found' });
     });
 
-    describe('When an error occurs during deletion', () => {
-      it('Then it returns a 500 error', async () => {
-     
-        const errorMessage = 'Database connection failed';
-        moviesRepository.delete.mockRejectedValue(new Error(errorMessage));
-
-        await moviesService.delete(req, res);
-
-        expect(res.sendStatus).toHaveBeenCalledWith(500);
-      });
+    it('should return 500 if there is an error', async () => {
+      moviesRepository.delete.mockRejectedValue(new Error('DB Error'));
+      await moviesService.delete(req, res);
+      expect(res.sendStatus).toHaveBeenCalledWith(500);
     });
   });
 });

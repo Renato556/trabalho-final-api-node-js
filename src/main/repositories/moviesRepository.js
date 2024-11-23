@@ -23,9 +23,9 @@ const moviesRepository = {
     });
   },
 
-  async findByYear(year) {
-    return mongoCollection.find({ releaseYear: parseInt(year, 10) }).toArray();
-  },
+  // async findByYear(year) {
+  //   return mongoCollection.find({ releaseYear: parseInt(year, 10) }).toArray();
+  // },
 
   async create(movieData) {
     const result = await mongoCollection.insertOne(movieData);
