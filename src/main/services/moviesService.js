@@ -30,6 +30,25 @@ const moviesService = {
     }
   },
 
+  async findByYear(req, res) {
+    try {
+      const { year } = req.params;
+      console.info(`[INFO] Getting movies from year: ${year}`);
+      const movies = await moviesRepository.findByYear(year);
+
+      if (!movies.length) {
+        console.warn('[WARN] No movies found for the given year');
+        return res.status(404).send({ message: 'No movies found for the given year' });
+      }
+
+      console.info('[INFO] Success getting movies by year');
+      res.status(200).send(movies);
+    } catch (e) {
+      console.error('[ERROR] Error getting movies by year:', e.message);
+      res.sendStatus(500);
+    }
+  },
+
   async create(req, res) {
     // verificação de existência de um filme com mesmo nome e diretor (409)
     try {

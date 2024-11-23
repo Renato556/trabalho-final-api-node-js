@@ -12,5 +12,6 @@ routes.get('/:id', idValidator, validateRequest, moviesService.findById);
 routes.post('/', movieValidator, validateRequest, moviesService.create);
 routes.put('/:id', idValidator, validateRequest, moviesService.update);
 routes.delete('/:id', idValidator, validateRequest, moviesService.delete);
+routes.get('/year/:year', moviesService.findByYear);
 
 module.exports = routes;
