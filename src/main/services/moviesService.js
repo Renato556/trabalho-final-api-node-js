@@ -31,8 +31,17 @@ const moviesService = {
   },
 
   async create(req, res) {
+    // verificação de existência de um filme com mesmo nome e diretor (409)
     try {
       console.info('[INFO] Creating a new movie');
+      const existingMovie = await moviesRepository.findByNameAndDirector(
+        req.body.name,
+        req.body.director
+      );
+      if (existingMovie) {
+        console.warn('[WARN] Movie already exists');
+        return res.status(409).send({ message: 'Movie already exists'});
+      }
       const movie = await moviesRepository.create(new MovieDTO(req.body));
       console.info('[INFO] Success creating movie');
       res.status(201).send(movie);

@@ -16,6 +16,13 @@ const moviesRepository = {
     return mongoCollection.findOne({ _id: new ObjectId(id) });
   },
 
+  async findByNameAndDirector(name, director) {
+    return mongoCollection.findOne({
+      name,
+      director
+    });
+  },  
+
   async create(movieData) {
     const result = await mongoCollection.insertOne(movieData);
     return await mongoCollection.findOne({ _id: result.insertedId });
