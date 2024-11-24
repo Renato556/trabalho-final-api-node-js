@@ -16,7 +16,8 @@ jest.mock('../../../db', () => ({
           'Anne Hathaway',
           'Timothée Chalamet',
         ],
-        descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
+        descricao:
+          'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
         anoLancamento: 2014,
         genero: ['Ficção científica', 'Aventura'],
       },
@@ -25,8 +26,14 @@ jest.mock('../../../db', () => ({
   findOne: jest.fn().mockReturnValue({
     _id: '673c847c6156c4908a2aa5fc',
     nome: 'Interestelar',
-    atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
-    descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
+    atores: [
+      'Matthew McConaughey',
+      'Jessica Chastain',
+      'Anne Hathaway',
+      'Timothée Chalamet',
+    ],
+    descricao:
+      'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
     anoLancamento: 2014,
     genero: ['Ficção científica', 'Aventura'],
   }),
@@ -37,8 +44,14 @@ jest.mock('../../main/repositories/moviesRepository', () => ({
     {
       _id: '673c847c6156c4908a2aa5fc',
       nome: 'Interestelar',
-      atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
-      descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
+      atores: [
+        'Matthew McConaughey',
+        'Jessica Chastain',
+        'Anne Hathaway',
+        'Timothée Chalamet',
+      ],
+      descricao:
+        'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
       anoLancamento: 2014,
       genero: ['Ficção científica', 'Aventura'],
     },
@@ -46,8 +59,14 @@ jest.mock('../../main/repositories/moviesRepository', () => ({
   findById: jest.fn().mockResolvedValue({
     _id: '673c847c6156c4908a2aa5fc',
     nome: 'Interestelar',
-    atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
-    descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
+    atores: [
+      'Matthew McConaughey',
+      'Jessica Chastain',
+      'Anne Hathaway',
+      'Timothée Chalamet',
+    ],
+    descricao:
+      'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
     anoLancamento: 2014,
     genero: ['Ficção científica', 'Aventura'],
   }),
@@ -57,7 +76,6 @@ jest.mock('../../main/repositories/moviesRepository', () => ({
 }));
 
 describe('Movies Repository and Service', () => {
-  
   describe('findAll', () => {
     it('should return all movies in DB', async () => {
       const result = await moviesRepository.findAll();
@@ -65,8 +83,14 @@ describe('Movies Repository and Service', () => {
         {
           _id: '673c847c6156c4908a2aa5fc',
           nome: 'Interestelar',
-          atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
-          descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
+          atores: [
+            'Matthew McConaughey',
+            'Jessica Chastain',
+            'Anne Hathaway',
+            'Timothée Chalamet',
+          ],
+          descricao:
+            'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
           anoLancamento: 2014,
           genero: ['Ficção científica', 'Aventura'],
         },
@@ -76,12 +100,20 @@ describe('Movies Repository and Service', () => {
 
   describe('findById', () => {
     it('should return the movie with the given ID', async () => {
-      const result = await moviesRepository.findById('673c847c6156c4908a2aa5fc');
+      const result = await moviesRepository.findById(
+        '673c847c6156c4908a2aa5fc'
+      );
       expect(result).toEqual({
         _id: '673c847c6156c4908a2aa5fc',
         nome: 'Interestelar',
-        atores: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway', 'Timothée Chalamet'],
-        descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
+        atores: [
+          'Matthew McConaughey',
+          'Jessica Chastain',
+          'Anne Hathaway',
+          'Timothée Chalamet',
+        ],
+        descricao:
+          'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço...',
         anoLancamento: 2014,
         genero: ['Ficção científica', 'Aventura'],
       });
@@ -94,7 +126,8 @@ describe('Movies Repository and Service', () => {
         name: 'Interestelar',
         director: 'Christopher Nolan',
         releaseYear: 2014,
-        synopsis: 'Uma equipe de exploradores viaja através de um buraco de minhoca...',
+        synopsis:
+          'Uma equipe de exploradores viaja através de um buraco de minhoca...',
         rating: 8.6,
         actors: ['Matthew McConaughey', 'Jessica Chastain', 'Anne Hathaway'],
         genres: ['Ficção científica', 'Aventura'],
@@ -117,14 +150,18 @@ describe('Movies Repository and Service', () => {
       });
       await moviesService.create(req, res);
       expect(res.status).toHaveBeenCalledWith(409);
-      expect(res.send).toHaveBeenCalledWith({ message: 'Movie already exists' });
+      expect(res.send).toHaveBeenCalledWith({
+        message: 'Movie already exists',
+      });
     });
 
     it('should create the movie and return it', async () => {
       moviesRepository.findByNameAndDirector.mockResolvedValue(null);
       moviesRepository.create.mockResolvedValue(new MovieDTO(req.body));
       await moviesService.create(req, res);
-      expect(moviesRepository.create).toHaveBeenCalledWith(expect.any(MovieDTO));
+      expect(moviesRepository.create).toHaveBeenCalledWith(
+        expect.any(MovieDTO)
+      );
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.send).toHaveBeenCalledWith(expect.objectContaining(req.body));
     });
