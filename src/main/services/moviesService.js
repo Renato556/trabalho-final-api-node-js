@@ -59,7 +59,7 @@ const moviesService = {
       );
       if (existingMovie) {
         console.warn('[WARN] Movie already exists');
-        return res.status(409).send({ message: 'Movie already exists'});
+        return res.status(409).send({ message: 'Movie already exists' });
       }
       const movie = await moviesRepository.create(new MovieDTO(req.body));
       console.info('[INFO] Success creating movie');
@@ -73,7 +73,6 @@ const moviesService = {
   async update(req, res) {
     try {
       console.info(`[INFO] Updating movie with id: ${req.params.id}`);
-      // acredito que precisamos verificar se existe um filme com o ID antes de tentar atualizar, não consegui fazer cair no cenário de 404
       const updatedMovie = await moviesRepository.update(
         req.params.id,
         req.body

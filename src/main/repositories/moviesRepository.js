@@ -19,7 +19,7 @@ const moviesRepository = {
   async findByNameAndDirector(name, director) {
     return mongoCollection.findOne({
       name,
-      director
+      director,
     });
   },
 
@@ -33,12 +33,11 @@ const moviesRepository = {
   },
 
   async update(id, movieData) {
-    const result = await mongoCollection.findOneAndUpdate(
+    return await mongoCollection.findOneAndUpdate(
       { _id: new ObjectId(id) },
       { $set: movieData },
-      { returnOriginal: false }
+      { returnDocument: 'after' }
     );
-    return result.value;
   },
 
   async delete(id) {
