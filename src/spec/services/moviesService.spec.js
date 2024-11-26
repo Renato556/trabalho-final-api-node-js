@@ -288,4 +288,143 @@ describe('Given moviesService', () => {
       });
     });
   });
+
+  describe('When create is called', () => {
+    describe('And is successful', () => {
+      beforeEach(async () => {
+        moviesRepository.findByNameAndDirector.mockResolvedValue(null);
+        moviesRepository.create.mockResolvedValue(mockDB[0]);
+        await moviesService.create({ body: mockDB[0] }, res);
+      });
+  
+      it('Then logs first info', () => {
+        expect(console.info).toHaveBeenCalledWith('[INFO] Creating a new movie');
+      });
+  
+      it('Then moviesRepository.findByNameAndDirector is called', () => {
+        expect(moviesRepository.findByNameAndDirector).toHaveBeenCalledWith(
+          mockDB[0].name,
+          mockDB[0].director
+        );
+      });
+  
+      it('Then moviesRepository.create is called', () => {
+        expect(moviesRepository.create).toHaveBeenCalledWith(expect.any(Object));
+      });
+  
+      it('Then logs second info', () => {
+        expect(console.info).toHaveBeenCalledWith('[INFO] Success creating movie');
+      });
+  
+      it('Then res.send is called', () => {
+        expect(res.status).toHaveBeenCalledWith(201);
+        expect(res.send).toHaveBeenCalledWith(mockDB[0]);
+      });
+    });
+  
+    describe('And a movie with the same name and director already exists', () => {
+      beforeEach(async () => {
+        moviesRepository.findByNameAndDirector.mockResolvedValue(mockDB[0]);
+        await moviesService.create({ body: mockDB[0] }, res);
+      });
+  
+      it('Then logs warning', () => {
+        expect(console.warn).toHaveBeenCalledWith('[WARN] Movie already exists');
+      });
+  
+      it('Then res.status is called', () => {
+        expect(res.status).toHaveBeenCalledWith(409);
+        expect(res.send).toHaveBeenCalledWith({ message: 'Movie already exists' });
+      });
+    });
+  
+    describe('And throws an error', () => {
+      beforeEach(async () => {
+        moviesRepository.findByNameAndDirector.mockRejectedValue(
+          new Error('An error occurred')
+        );
+        await moviesService.create({ body: mockDB[0] }, res);
+      });
+  
+      it('Then logs error', () => {
+        expect(console.error).toHaveBeenCalledWith(
+          '[ERROR] Error creating movie:',
+          'An error occurred'
+        );
+      });
+  
+      it('Then res.sendStatus is called', () => {
+        expect(res.sendStatus).toHaveBeenCalledWith(500);
+      });
+    });
+  });
+  
+  describe('When update is called', () => {
+    describe('And is successful', () => {
+      beforeEach(async () => {
+        moviesRepository.update.mockResolvedValue(mockDB[0]);
+        await moviesService.update(req, res);
+      });
+  
+      it('Then logs first info', () => {
+        expect(console.info).toHaveBeenCalledWith(
+          `[INFO] Updating movie with id: ${req.params.id}`
+        );
+      });
+  
+      it('Then moviesRepository.update is called', () => {
+        expect(moviesRepository.update).toHaveBeenCalledWith(
+          req.params.id,
+          req.body
+        );
+      });
+  
+      it('Then logs second info', () => {
+        expect(console.info).toHaveBeenCalledWith('[INFO] Success updating movie');
+      });
+  
+      it('Then res.send is called', () => {
+        expect(res.send).toHaveBeenCalledWith(mockDB[0]);
+      });
+    });
+  
+    describe('And no movie is found for update', () => {
+      beforeEach(async () => {
+        moviesRepository.update.mockResolvedValue(null);
+        await moviesService.update(req, res);
+      });
+  
+      it('Then logs warning', () => {
+        expect(console.warn).toHaveBeenCalledWith(
+          '[WARN] Movie not found for update'
+        );
+      });
+  
+      it('Then res.status is called', () => {
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.send).toHaveBeenCalledWith({ message: 'Movie not found' });
+      });
+    });
+  
+    describe('And throws an error', () => {
+      beforeEach(async () => {
+        moviesRepository.update.mockRejectedValue(
+          new Error('An error occurred')
+        );
+        await moviesService.update(req, res);
+      });
+  
+      it('Then logs error', () => {
+        expect(console.error).toHaveBeenCalledWith(
+          '[ERROR] Error updating movie:',
+          'An error occurred'
+        );
+      });
+  
+      it('Then res.sendStatus is called', () => {
+        expect(res.sendStatus).toHaveBeenCalledWith(500);
+      });
+    });
+  });
 });
+
