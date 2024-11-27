@@ -201,4 +201,67 @@ describe('Movies Repository and Service', () => {
       expect(res.sendStatus).toHaveBeenCalledWith(500);
     });
   });
+
+  describe('update', () => {
+    const req = {
+      params: { id: '673c847c6156c4908a2aa5fc' },
+      body: {
+        nome: 'Interestelar 2',
+        anoLancamento: 2024,
+        atores: [
+          'Matthew McConaughey',
+          'Jessica Chastain',
+          'Anne Hathaway',
+          'Timothée Chalamet',
+        ],
+        descricao: 'Uma nova jornada através do espaço...',
+        genero: ['Ficção científica', 'Aventura'],
+      },
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      send: jest.fn(),
+      sendStatus: jest.fn(),
+    };
+  
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+  
+    it('should update the movie successfully', async () => {
+      const updatedMovie = {
+        _id: '673c847c6156c4908a2aa5fc',
+        nome: 'Interestelar 2',
+        anoLancamento: 2024,
+        atores: [
+          'Matthew McConaughey',
+          'Jessica Chastain',
+          'Anne Hathaway',
+          'Timothée Chalamet',
+        ],
+        descricao: 'Uma nova jornada através do espaço...',
+        genero: ['Ficção científica', 'Aventura'],
+      };
+  
+      moviesRepository.update = jest.fn().mockResolvedValue(updatedMovie);
+      await moviesService.update(req, res);
+      expect(moviesRepository.update).toHaveBeenCalledWith(req.params.id, req.body);
+      expect(res.send).toHaveBeenCalledWith(updatedMovie);
+    });
+  
+    it('should return 404 if the movie is not found', async () => {
+      moviesRepository.update = jest.fn().mockResolvedValue(null);
+      await moviesService.update(req, res);
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.send).toHaveBeenCalledWith({ message: 'Movie not found' });
+    });
+  
+    it('should return 500 if there is an error', async () => {
+      moviesRepository.update = jest.fn().mockRejectedValue(new Error('DB Error'));
+      res.sendStatus = jest.fn();
+      await moviesService.update(req, res);
+      expect(res.sendStatus).toHaveBeenCalledWith(500);
+    });
+  });
+
 });
